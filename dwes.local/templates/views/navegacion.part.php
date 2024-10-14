@@ -19,6 +19,7 @@
         <li class="active lien"><a href="about.php"><i class="fa fa-bookmark sr-icons"></i> About</a></li>
         <li class=" lien"><a href="blog.php"><i class="fa fa-file-text sr-icons"></i> Blog</a></li>
         <li><a href="contact.php"><i class="fa fa-phone-square sr-icons"></i> Contact</a></li>
+        <li><a href="asociados.php"><i class="fa fa-phone-square sr-icons"></i> Asociados</a></li>
       </ul>
     </div>
   </div>
