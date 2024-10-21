@@ -1,6 +1,6 @@
 <?php
-
-class Imagen
+require_once 'IEntity.php';
+class Imagen implements IEntity
 {
 
     const RUTA_IMAGENES_PORTFOLIO = '/public/images/index/portfolio/';
@@ -120,5 +120,18 @@ class Imagen
     public function getUrlSubidas(): string
     {
         return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre(),
+            'descripcion' => $this->getDescripcion(),
+            'numVisualizaciones' => $this->getNumVisualizaciones(),
+            'numLikes' => $this->getNumLikes(),
+            'numDownloads' => $this->getNumDownloads(),
+            'categoria' => $this->getCategoria()
+        ];
     }
 }

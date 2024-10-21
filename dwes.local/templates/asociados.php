@@ -6,6 +6,10 @@ require_once __DIR__ . '/../src/database/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+
+        $config = require_once __DIR__ . '/../app/config.php';
+        $conexion = Connection::make($config['database']);
+        
         $nombre = trim(htmlspecialchars($_POST['nombre']));
         $descripcion = trim(htmlspecialchars($_POST['descripcion']));
         $tiposAceptados = ['image/jpeg', 'image/gif', 'image/png'];
@@ -14,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $asociado = new Asociado($nombre, $logo->getFileName(), $descripcion);
 
-        $conexion = Connection::make();
         $sql = "INSERT INTO asociados (nombre, logo, descripcion) VALUES (:nombre, :logo, :descripcion)";
         $pdoStatement = $conexion->prepare($sql);
         $parametros = [

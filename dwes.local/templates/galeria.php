@@ -4,10 +4,13 @@ require_once __DIR__ . '/../src/utils/file.class.php';
 require_once __DIR__ . '/../src/entity/imagen.class.php';
 require_once __DIR__ . '/../src/database/connection.php';
 require_once __DIR__ . '/../src/database/QueryBuilder.php';
-try {
-    $conexion = Connection::make();
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+try {
+    $config = require_once __DIR__ . '/../app/config.php';
+    App::bind('config', $config);
+    $conexion = App::getConnection();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $titulo = trim(htmlspecialchars($_POST['titulo']));
         $descripcion = trim(htmlspecialchars($_POST['descripcion']));
@@ -34,12 +37,15 @@ try {
         $descripcion = "";
         $mensaje = "";
     }
-    $queryBuilder = new QueryBuilder($conexion);
-    $imagenes = $queryBuilder->findAll('imagenes', 'Imagen');
+    $queryBuilder = new QueryBuilder('imagenes','Imagen');
+    $imagenes = $queryBuilder->findAll();
 } catch (FileException $fileException) {
     $errores[] = $fileException->getMessage();
 } catch (QueryException $queryException) {
     $errores[] = $fileException->getMessage();
+} catch (AppException $appException) {
+    $errores[] = $appException->getMessage();
 }
+
 
 require_once __DIR__ . "/views/galeria.view.php";

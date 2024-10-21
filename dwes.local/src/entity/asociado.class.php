@@ -1,6 +1,8 @@
 <?php
+require_once 'IEntity.php';
 
-class Asociado{
+class Asociado implements IEntity
+{
 
     const RUTA_LOGOS_ASOCIADOS = '/public/images/asociados/';
 
@@ -60,4 +62,12 @@ class Asociado{
         return self::RUTA_LOGOS_ASOCIADOS . $this->getNombre();
     }
 
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'nombre' => $this->getNombre(),
+            'descripcion' => $this->getDescripcion()
+        ];
+    }
 }
